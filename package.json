@@ -6,8 +6,12 @@
   "type": "module",
   "_comment": "type module is added to use ES modules instead of commonJS",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
 }
