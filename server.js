@@ -1,6 +1,16 @@
 import http from "http";
+import fs from "fs/promises";
+import url from "url";
+import path from "path";
 
-const server = http.createServer((req, res) => {
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+//Get current path in commonJS
+// __filename -> gets u the file name
+// __dirname -> gets u the directory name
+
+const server = http.createServer(async (req, res) => {
   // res.setHeader('Content-Type', 'text/html');
   // res.statusCode = 404;
   // res.write("<h1>Hello world!</h1>");
@@ -11,19 +21,17 @@ const server = http.createServer((req, res) => {
   try {
     // check if a GET req
     if (req.method === "GET") {
-      if (req.url === "/") {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end("<h1>Homepage</h1>");
-      } else if (req.url === "/about") {
-        res.writeHead(200, { "Content-Type": "text/html" });
-        res.end("<h1>About page </h1>");
-      } else {
-        res.writeHead(404, { "Content-Type": "text/html" });
-        res.end("<h1>404 page not found</h1>");
-      }
-    } else {
-      throw new Error("Method not allowed");
-    }
+      let filePath;
+      if (req.url === "/")
+        filePath = path.join(__dirname, "public", "index.html");
+      else if (req.url === "/about")
+        filePath = path.join(__dirname, "public", "about.html");
+      else throw new Error("404 Page Not Found...");
+
+      const data = await fs.readFile(filePath);
+      res.setHeader("Content-Type", "text/html");
+      res.write(data);
+  } else throw new Error("Method not allowed");
   } catch (err) {
     res.writeHead(500, "text/html");
     res.end("<h1>500 Internal Server Error</h1>");
