@@ -28,25 +28,24 @@ const readFile = async () => {
 };
 
 // writeFile()
-const writeFile = async ()=> {
-    try {
-        await fs.writeFile('./test.txt', 'Hello this file should be changed');
-        console.log('File Has been written')
-    } catch (error) {
-        console.log(error)
-    }
-}
+const writeFile = async () => {
+  try {
+    await fs.writeFile("./test.txt", "Hello this file should be changed");
+    console.log("File Has been written");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // appendFile()
-const appendFile = async ()=> {
-    try {
-        await fs.appendFile('./test.txt', '\nThis is appended text');
-        console.log('file appended to');
-    } catch (error) {
-        console.log(error);
-        
-    }
-}
+const appendFile = async () => {
+  try {
+    await fs.appendFile("./test.txt", "\nThis is appended text");
+    console.log("file appended to");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 writeFile();
 appendFile();
